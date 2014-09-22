@@ -1,4 +1,4 @@
 mmooc-docker-canvas
 ===================
 
-Build scipts for Matematikk-MOOC Canvas Docker image
+Build scripts for Matematikk-MOOC Canvas Docker image
