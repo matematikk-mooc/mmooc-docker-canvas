@@ -1,4 +1,6 @@
-FROM matte-mooc:base
+FROM ubuntu:12.04
+
+RUN apt-get -y update
 
 # https://github.com/instructure/canvas-lms/wiki/Production-Start#dependency-installation
 
