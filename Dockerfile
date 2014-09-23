@@ -49,8 +49,6 @@ WORKDIR /
 
 # https://github.com/instructure/canvas-lms/wiki/Production-Start#apache-configuration
 
-FROM matte-mooc:canvas
-
 ENV RAILS_ENV production
 WORKDIR /opt/canvas-lms
 RUN npm install
