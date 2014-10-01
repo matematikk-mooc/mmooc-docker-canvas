@@ -22,7 +22,7 @@ RUN apt-get install -y nodejs
 
 
 RUN apt-get install -y git-core
-RUN cd /opt && git clone --depth 1 --branch stable https://github.com/instructure/canvas-lms.git
+RUN cd /opt && git clone --depth 1 --branch stable https://github.com/matematikk-mooc/canvas-lms.git
 
 
 RUN gem install bundler --version 1.5.3
