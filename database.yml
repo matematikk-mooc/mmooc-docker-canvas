@@ -14,7 +14,7 @@ development:
   host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
   port: <%= ENV['DB_PORT_5432_TCP_PORT'] %>
   username: canvas
-  password: geheim
+  password: <%= ENV['DBPASS'] %>
   timeout: 5000
   queue:
     adapter: postgresql
@@ -23,7 +23,7 @@ development:
     host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
     port: <%= ENV['DB_PORT_5432_TCP_PORT'] %>
     username: canvas
-    password: geheim
+    password: <%= ENV['DBPASS'] %>
     timeout: 5000
     
 production:
@@ -33,7 +33,7 @@ production:
   host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
   port: <%= ENV['DB_PORT_5432_TCP_PORT'] %>
   username: canvas
-  password: geheim
+  password: <%= ENV['DBPASS'] %>
   timeout: 5000
   queue:
     adapter: postgresql
@@ -42,5 +42,5 @@ production:
     host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
     port: <%= ENV['DB_PORT_5432_TCP_PORT'] %>
     username: canvas
-    password: geheim
+    password: <%= ENV['DBPASS'] %>
     timeout: 5000
