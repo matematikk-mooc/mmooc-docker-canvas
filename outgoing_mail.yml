@@ -17,11 +17,11 @@ test:
   delivery_method: "test"
 
 production:
-  address: "<% ENV['SMTP_HOST'] %>"
-  port: "<% ENV['SMTP_PORT'] %>"
-  domain: "<% ENV['DOMAIN'] %>"
-  outgoing_address: "<% ENV['OUTGOING_EMAIL_ADDRESS'] %>"
-  default_name: "<% ENV['OUTGOING_EMAIL_NAME'] %>"
+  address: <%= ENV['SMTP_HOST'] %>
+  port: <%= ENV['SMTP_PORT'] %>
+  domain: <%= ENV['DOMAIN'] %>
+  outgoing_address: "<%= ENV['OUTGOING_EMAIL_ADDRESS'] %>"
+  default_name: "<%= ENV['OUTGOING_EMAIL_NAME'] %>"
 
 # If receiving mail from multiple inboxes (see incoming_mail.yml.example),
 # you'll want to include those addresses in a reply_to_addresses array so
