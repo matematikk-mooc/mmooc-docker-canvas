@@ -37,7 +37,8 @@ ADD outgoing_mail.yml /opt/canvas-lms/config/
 ADD security.yml /opt/canvas-lms/config/
 ADD external_migration.yml /opt/canvas-lms/config/
 ADD saml.yml /opt/canvas-lms/config/
-
+ADD cache_store.yml /opt/canvas-lms/config/
+ADD redis.yml /opt/canvas-lms/config/
 
 WORKDIR /opt/canvas-lms
 
