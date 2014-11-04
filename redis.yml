@@ -18,3 +18,9 @@ test:
   # use this server for anything else, make sure to set aside a database id for
   # these tests to use.
   database: 1
+
+development:
+  servers:
+    # list of redis servers to use in the ring
+    - "redis://<%= ENV['CACHE_PORT_6379_TCP_ADDR'] %>:<%= ENV['CACHE_PORT_6379_TCP_PORT'] %>"
+
