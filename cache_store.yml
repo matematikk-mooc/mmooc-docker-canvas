@@ -6,9 +6,10 @@ production:
 
 test:
   cache_store: redis_store
+
 development:
-  # cache_store: redis_store
-  #
+  cache_store: redis_store
+  
   # # normally you'll want to define your redis servers in config/redis.yml and
   # # not here, so that they are used for data as well as cache storage.
   #
