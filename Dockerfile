@@ -68,6 +68,6 @@ ADD apache2-wrapper.sh /root/apache2
 RUN a2dissite default
 RUN a2ensite canvas
 
-EXPOSE 80 443
+EXPOSE 80
 
 CMD ["bin/bash", "/root/apache2"]
