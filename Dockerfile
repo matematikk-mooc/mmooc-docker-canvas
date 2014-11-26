@@ -70,4 +70,9 @@ RUN a2ensite canvas
 
 EXPOSE 80
 
+# https://github.com/instructure/QTIMigrationTool/wiki
+RUN apt-get install python-lxml
+RUN cd /opt/canvas-lms/vendor && git clone https://github.com/instructure/QTIMigrationTool.git QTIMigrationTool
+RUN chmod +x /opt/canvas-lms/vendor/QTIMigrationTool/migrate.py
+
 CMD ["bin/bash", "/root/apache2"]
