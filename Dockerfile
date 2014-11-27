@@ -25,7 +25,7 @@ RUN apt-get install -y git-core
 RUN cd /opt && git clone --depth 1 --branch stable https://github.com/matematikk-mooc/canvas-lms.git
 
 
-RUN gem install bundler --version 1.5.3
+RUN gem install bundler --version 1.7.2
 RUN cd /opt/canvas-lms && bundle install --path vendor/bundle --without=sqlite
 
 ADD amazon_s3.yml /opt/canvas-lms/config/
