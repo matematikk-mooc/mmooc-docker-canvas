@@ -54,7 +54,7 @@ WORKDIR /
 ENV RAILS_ENV production
 WORKDIR /opt/canvas-lms
 ADD npmrc /.npmrc
-RUN npm install
+RUN npm config ls; npm install
 RUN bundle exec rake canvas:compile_assets
 WORKDIR /
 
