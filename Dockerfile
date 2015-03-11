@@ -13,7 +13,9 @@ RUN apt-get update
 RUN apt-get install -y ruby1.9.3 \
     zlib1g-dev libxml2-dev libmysqlclient-dev libxslt1-dev \
     imagemagick libpq-dev libxmlsec1-dev libcurl4-gnutls-dev \
-    libxmlsec1 build-essential openjdk-7-jre unzip
+    libxmlsec1 build-essential openjdk-7-jre unzip \
+    libsqlite3-dev
+
 
 # RUN apt-get install -y python-software-properties python g++ make
 RUN add-apt-repository ppa:chris-lea/node.js
