@@ -13,14 +13,13 @@ production:
 test:
   # only tests that are exercising the integration with redis require redis to run.
   servers:
-    - redis://localhost
+    - "redis://<%= ENV['CACHE_PORT_6379_TCP_ADDR'] %>:<%= ENV['CACHE_PORT_6379_TCP_PORT'] %>"
   # warning: the redis database will get cleared before each test, so if you
   # use this server for anything else, make sure to set aside a database id for
   # these tests to use.
-  database: 1
+  database: 2
 
 development:
   servers:
     # list of redis servers to use in the ring
     - "redis://<%= ENV['CACHE_PORT_6379_TCP_ADDR'] %>:<%= ENV['CACHE_PORT_6379_TCP_PORT'] %>"
-

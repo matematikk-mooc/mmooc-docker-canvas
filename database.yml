@@ -3,8 +3,10 @@ test:
   adapter: postgresql
   encoding: utf8
   database: canvas_test
-  host: localhost
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['DB_PORT_5432_TCP_PORT'] %>
   username: canvas
+  password: <%= ENV['DBPASS'] %>
   timeout: 5000
 
 development:
@@ -25,7 +27,7 @@ development:
     username: canvas
     password: <%= ENV['DBPASS'] %>
     timeout: 5000
-    
+
 production:
   adapter: postgresql
   encoding: utf8

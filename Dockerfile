@@ -8,7 +8,7 @@ RUN apt-get -y update
 
 RUN apt-get install -y software-properties-common python-software-properties
 RUN apt-add-repository ppa:brightbox/ruby-ng
-RUN apt-get update
+RUN apt-get -y update
 
 RUN apt-get install -y ruby1.9.3 \
     zlib1g-dev libxml2-dev libmysqlclient-dev libxslt1-dev \
