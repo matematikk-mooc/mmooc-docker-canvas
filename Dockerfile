@@ -24,7 +24,7 @@ RUN apt-get install -y nodejs
 
 
 RUN apt-get install -y git-core
-RUN cd /opt && git clone --depth 1 --branch master https://github.com/matematikk-mooc/canvas-lms.git
+RUN cd /opt && git clone --depth 1 --branch mark_done https://github.com/matematikk-mooc/canvas-lms.git
 
 
 RUN gem install bundler --version 1.8.4
