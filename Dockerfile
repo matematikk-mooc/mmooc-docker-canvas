@@ -37,7 +37,7 @@ RUN chown -R canvasuser config/environment.rb log tmp public/assets public/style
 # https://github.com/instructure/canvas-lms/wiki/Production-Start#apache-configuration
 ENV RAILS_ENV production
 # ruby barfs at non-ascii, need to set encoding.
-RUN npm install
+RUN npm install --unsafe-perm
 RUN find /opt/canvas-lms/vendor/bundle/ruby \
          -name extractor.rb \
          -exec sed -i -e 's/File.read(path)/File.read(path, :encoding => "UTF-8")/' {} \; && \
