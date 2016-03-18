@@ -15,7 +15,7 @@ RUN apt-get -y update && \
     ruby-passenger nodejs ruby-multi-json
 
 RUN cd /opt && git clone --depth 1 --branch stable https://github.com/instructure/canvas-lms.git
-RUN gem install bundler
+RUN gem install bundler && gem install passenger
 RUN cd /opt/canvas-lms && bundle install --path vendor/bundle --without=sqlite
 ADD amazon_s3.yml /opt/canvas-lms/config/
 ADD database.yml /opt/canvas-lms/config/

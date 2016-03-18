@@ -13,4 +13,5 @@ dirs="/opt/canvas-lms/log /opt/canvas-lms/tmp/files"
 chown canvasuser $dirs
 chmod 0777 $dirs
 
+/opt/canvas-lms/script/canvas_init start
 exec /usr/sbin/apache2 -D FOREGROUND
