@@ -50,4 +50,4 @@ RUN a2ensite canvas
 EXPOSE 80
 RUN cd /opt/canvas-lms/vendor && git clone https://github.com/instructure/QTIMigrationTool.git QTIMigrationTool
 RUN chmod +x /opt/canvas-lms/vendor/QTIMigrationTool/migrate.py
-ENTRYPOINT ["/root/apache2"]
+CMD ["/bin/bash","/root/apache2"]
