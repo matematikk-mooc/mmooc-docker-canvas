@@ -2,20 +2,22 @@ FROM ubuntu:15.10
 # https://github.com/instructure/canvas-lms/wiki/Production-Start#dependency-installation # Brightbox provides updated versions of passenger and ruby (http://wiki.brightbox.co.uk/docs:ruby-ng) RUN apt-get install -y software-properties-common python-software-properties
 # We need a pretty new node.js
 RUN apt-get -y update && \
-    apt-get -y install curl apt-transport-https && \
+    apt-get -y install curl apt-transport-https ca-certificates && \
     (curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -) &&  \
     (echo 'deb https://deb.nodesource.com/node_0.12 wily main' > /etc/apt/sources.list.d/nodesource.list) && \
     (echo 'deb-src https://deb.nodesource.com/node_0.12 wily main' >> /etc/apt/sources.list.d/nodesource.list) && \
+    (apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7) && \
+    (echo deb https://oss-binaries.phusionpassenger.com/apt/passenger wily main > /etc/apt/sources.list.d/passenger.list) && \
     apt-get -y update && \
     apt-get -y install ruby ruby-dev \
     zlib1g-dev libxml2-dev libmysqlclient-dev libxslt1-dev \
     imagemagick libpq-dev libxmlsec1-dev libcurl4-gnutls-dev \
     libxmlsec1 build-essential openjdk-7-jre unzip git-core \
     libapache2-mod-passenger apache2 python-lxml libsqlite3-dev \
-    ruby-passenger nodejs ruby-multi-json
+    passenger passenger-dev nodejs ruby-multi-json
 
 RUN cd /opt && git clone --depth 1 --branch stable https://github.com/instructure/canvas-lms.git
-RUN gem install bundler && gem install passenger
+RUN gem install bundler
 RUN cd /opt/canvas-lms && bundle install --path vendor/bundle --without=sqlite
 ADD amazon_s3.yml /opt/canvas-lms/config/
 ADD database.yml /opt/canvas-lms/config/
