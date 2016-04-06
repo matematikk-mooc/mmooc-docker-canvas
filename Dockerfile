@@ -35,7 +35,7 @@ WORKDIR /opt/canvas-lms
 RUN adduser --disabled-password --gecos canvas canvasuser
 RUN mkdir -p log tmp/pids public/assets public/stylesheets/compiled
 RUN touch Gemfile.lock
-RUN chown -R canvasuser config/environment.rb log tmp public/assets public/stylesheets/compiled Gemfile.lock config.ru
+RUN chown -R canvasuser config/environment.rb log tmp app public Gemfile.lock config.ru
 # https://github.com/instructure/canvas-lms/wiki/Production-Start#apache-configuration
 ENV RAILS_ENV production
 # ruby barfs at non-ascii, need to set encoding.
