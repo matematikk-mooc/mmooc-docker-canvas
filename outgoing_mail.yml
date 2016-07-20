@@ -17,11 +17,16 @@ test:
   delivery_method: "test"
 
 production:
-  address: <%= ENV['SMTP_HOST'] %>
+  enable_starttls_auto: <%= ENV['EMAIL_ENABLE_STARTTLS_AUTO'] %>
+  openssl_verify_mode: <%= ENV['EMAIL_OPENSSL_VERIFY_MODE'] %>
   port: <%= ENV['SMTP_PORT'] %>
-  domain: <%= ENV['DOMAIN'] %>
-  outgoing_address: "<%= ENV['OUTGOING_EMAIL_ADDRESS'] %>"
-  default_name: "<%= ENV['OUTGOING_EMAIL_NAME'] %>"
+  address: <%= ENV['SMTP_HOST'] %>
+  user_name: <%= ENV['EMAIL_USER_NAME'] %>
+  password: <%= ENV['EMAIL_PASSWORD'] %>
+  authentication: <%= ENV['EMAIL_AUTHENTICATION'] %>
+  domain: <%= ENV['EMAIL_DOMAIN'] %>
+  outgoing_address: <%= ENV['OUTGOING_EMAIL_ADDRESS'] %>
+  default_name: <%= ENV['OUTGOING_EMAIL_NAME'] %>
 
 # If receiving mail from multiple inboxes (see incoming_mail.yml.example),
 # you'll want to include those addresses in a reply_to_addresses array so
