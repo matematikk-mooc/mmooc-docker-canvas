@@ -17,7 +17,7 @@ RUN apt-get -y update && \
     passenger passenger-dev nodejs ruby-multi-json
 
 RUN cd /opt && git clone --depth 1 --branch stable https://github.com/instructure/canvas-lms.git
-RUN gem install bundler
+RUN gem install bundler --version 1.11.2
 RUN cd /opt/canvas-lms && bundle install --path vendor/bundle --without=sqlite
 ADD amazon_s3.yml /opt/canvas-lms/config/
 ADD database.yml /opt/canvas-lms/config/
@@ -44,7 +44,7 @@ RUN find /opt/canvas-lms/vendor/bundle/ruby \
          -name extractor.rb \
          -exec sed -i -e 's/File.read(path)/File.read(path, :encoding => "UTF-8")/' {} \; && \
     bundle exec rake canvas:compile_assets
-RUN a2enmod passenger && a2enmod ssl
+RUN a2enmod passenger && a2enmod ssl && a2enmod rewrite
 ADD canvas_apache.conf /etc/apache2/sites-available/canvas.conf
 ADD apache2-wrapper.sh /root/apache2
 RUN a2dissite 000-default
