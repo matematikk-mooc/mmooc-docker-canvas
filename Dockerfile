@@ -44,7 +44,7 @@ RUN find /opt/canvas-lms/vendor/bundle/ruby \
          -name extractor.rb \
          -exec sed -i -e 's/File.read(path)/File.read(path, :encoding => "UTF-8")/' {} \; && \
     bundle exec rake canvas:compile_assets
-RUN a2enmod passenger && a2enmod ssl
+RUN a2enmod passenger && a2enmod ssl && a2enmod rewrite
 ADD canvas_apache.conf /etc/apache2/sites-available/canvas.conf
 ADD apache2-wrapper.sh /root/apache2
 RUN a2dissite 000-default
