@@ -1,23 +1,23 @@
-FROM ubuntu:15.10
+FROM ubuntu:16.04
 # https://github.com/instructure/canvas-lms/wiki/Production-Start#dependency-installation # Brightbox provides updated versions of passenger and ruby (http://wiki.brightbox.co.uk/docs:ruby-ng) RUN apt-get install -y software-properties-common python-software-properties
 # We need a pretty new node.js
 RUN apt-get -y update && \
     apt-get -y install curl apt-transport-https ca-certificates && \
     (curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -) &&  \
-    (echo 'deb https://deb.nodesource.com/node_0.12 wily main' > /etc/apt/sources.list.d/nodesource.list) && \
-    (echo 'deb-src https://deb.nodesource.com/node_0.12 wily main' >> /etc/apt/sources.list.d/nodesource.list) && \
+    (echo 'deb https://deb.nodesource.com/node_0.12 xenial main' > /etc/apt/sources.list.d/nodesource.list) && \
+    (echo 'deb-src https://deb.nodesource.com/node_0.12 xenial main' >> /etc/apt/sources.list.d/nodesource.list) && \
     (apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7) && \
     (echo deb https://oss-binaries.phusionpassenger.com/apt/passenger wily main > /etc/apt/sources.list.d/passenger.list) && \
     apt-get -y update && \
     apt-get -y install ruby ruby-dev \
     zlib1g-dev libxml2-dev libmysqlclient-dev libxslt1-dev \
     imagemagick libpq-dev libxmlsec1-dev libcurl4-gnutls-dev \
-    libxmlsec1 build-essential openjdk-7-jre unzip git-core \
+    libxmlsec1 build-essential openjdk-9-jre unzip git-core \
     libapache2-mod-passenger apache2 python-lxml libsqlite3-dev \
-    passenger passenger-dev nodejs ruby-multi-json
+    passenger passenger-dev nodejs npm ruby-multi-json
 
 RUN cd /opt && git clone --depth 1 --branch stable https://github.com/instructure/canvas-lms.git
-RUN gem install bundler
+RUN gem install -v 1.13.7 bundler
 RUN cd /opt/canvas-lms && bundle install --path vendor/bundle --without=sqlite
 ADD amazon_s3.yml /opt/canvas-lms/config/
 ADD database.yml /opt/canvas-lms/config/
@@ -38,8 +38,12 @@ RUN touch Gemfile.lock
 RUN chown -R canvasuser config/environment.rb log tmp app public Gemfile.lock config.ru
 # https://github.com/instructure/canvas-lms/wiki/Production-Start#apache-configuration
 ENV RAILS_ENV production
+# packages might try to use "env node" rather than "env nodejs"
+# npm needs some handholding with its dependency resolution
+RUN ln -s /usr/bin/nodejs /usr/bin/node && \
+    npm install enhanced-resolve@3.0.3 loader-runner@2.2.0 && \
+    npm install --unsafe-perm
 # ruby barfs at non-ascii, need to set encoding.
-RUN npm install --unsafe-perm
 RUN find /opt/canvas-lms/vendor/bundle/ruby \
          -name extractor.rb \
          -exec sed -i -e 's/File.read(path)/File.read(path, :encoding => "UTF-8")/' {} \; && \
