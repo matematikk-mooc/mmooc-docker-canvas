@@ -49,7 +49,7 @@ RUN chown -R canvasuser config/environment.rb log tmp public/assets \
 RUN npm install n -g
 RUN n 6
 RUN yarn install
-RUN RAILS_ENV=production 
+ENV RAILS_ENV=production 
 RUN ln -s /usr/bin/nodejs /usr/bin/node && \
     npm install enhanced-resolve@3.0.3 loader-runner@2.2.0 && \
     npm install --unsafe-perm
@@ -58,11 +58,9 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node && \
 RUN find /opt/canvas-lms/vendor/bundle/ruby \
          -name extractor.rb \
          -exec sed -i -e 's/File.read(path)/File.read(path, :encoding => "UTF-8")/' {} \; && \
-    bundle exec rake canvas:compile_assets
+    RAILS_ENV=production bundle exec rake canvas:compile_assets
     
 RUN chown -R canvasuser public/dist/brandable_css
-
-RUN npm install webpack
 
 # https://github.com/instructure/canvas-lms/wiki/Production-Start#apache-configuration
 
