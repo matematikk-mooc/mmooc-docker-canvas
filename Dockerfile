@@ -4,11 +4,12 @@ FROM ubuntu:16.04
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update && \
     apt-get -y install software-properties-common && \
+    apt-get -y install vim && \
     apt-add-repository -y ppa:brightbox/ruby-ng && \
     apt-get -y install curl tzdata apt-transport-https ca-certificates && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get -y update &&  apt-get -y install yarn && \
+    apt-get -y update &&  apt-get -y install --allow-downgrades yarn=0.27.5-1 && \
     apt-get -y install python && \
     (curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -) &&  \
     (echo 'deb https://deb.nodesource.com/node_0.12 xenial main' > /etc/apt/sources.list.d/nodesource.list) && \
@@ -29,6 +30,7 @@ ADD amazon_s3.yml /opt/canvas-lms/config/
 ADD database.yml /opt/canvas-lms/config/
 ADD delayed_jobs.yml /opt/canvas-lms/config/
 ADD domain.yml /opt/canvas-lms/config/
+ADD dynamic_settings.yml /opt/canvas-lms/config/
 ADD file_store.yml /opt/canvas-lms/config/
 ADD outgoing_mail.yml /opt/canvas-lms/config/
 ADD security.yml /opt/canvas-lms/config/
